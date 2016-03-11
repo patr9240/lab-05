@@ -1,8 +1,8 @@
 "use strict";
 var express = require('express');
 var router = express.Router();
-var UserModel = require('../models/users');
-var User = UserModel.User;
+var userModel = require('../models/user');
+var User = userModel.User;
 // GET - show main aritcles page
 router.get('/', function (req, res, next) {
     // use the Article model to query the Articles collection
@@ -14,7 +14,7 @@ router.get('/', function (req, res, next) {
         else {
             // no error, we found a list of articles
             res.render('users/index', {
-                title: 'User',
+                title: 'Users',
                 users: users
             });
         }
@@ -54,7 +54,7 @@ router.get('/:id', function (req, res, next) {
             //show the edit view
             res.render('users/edit', {
                 title: 'User Details',
-                users: User
+                user: User
             });
         }
     });
@@ -64,13 +64,13 @@ router.post('/:id', function (req, res, next) {
     // grab the id from the url parameter
     var id = req.params.id;
     // create and populate an article object
-    var users = new User({
+    var user = new User({
         _id: id,
         username: req.body.username,
         password: req.body.password
     });
     // run the update using mongoose and our model
-    User.update({ _id: id }, users, function (error) {
+    User.update({ _id: id }, user, function (error) {
         if (error) {
             console.log(error);
             res.end(error);

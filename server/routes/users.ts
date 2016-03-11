@@ -3,9 +3,9 @@ var router = express.Router();
 
 // db references
 import mongoose = require('mongoose');
-import UserModel = require('../models/users');
+import userModel = require('../models/user');
 
-import User = UserModel.User;
+import User = userModel.User;
 
 // GET - show main aritcles page
 router.get('/', (req: express.Request, res: express.Response, next: any) => {
@@ -19,7 +19,7 @@ router.get('/', (req: express.Request, res: express.Response, next: any) => {
         else {
             // no error, we found a list of articles
             res.render('users/index', {
-                title: 'User',
+                title: 'Users',
                 users: users
             });
         }
@@ -64,7 +64,7 @@ router.get('/:id', (req: express.Request, res: express.Response, next: any) => {
             //show the edit view
             res.render('users/edit', {
                 title: 'User Details',
-                users: User
+                user: User
             });
         }
     });
@@ -77,14 +77,14 @@ router.post('/:id', (req: express.Request, res: express.Response, next: any) => 
     var id = req.params.id;
 
     // create and populate an article object
-    var users = new User({
+    var user = new User({
         _id: id,
         username: req.body.username,
         password: req.body.password
     });
 
     // run the update using mongoose and our model
-    User.update({ _id: id }, users, (error) => {
+    User.update({ _id: id }, user, (error) => {
         if (error) {
             console.log(error);
             res.end(error);

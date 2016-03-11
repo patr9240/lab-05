@@ -6,13 +6,14 @@ var userSchema = new mongoose.Schema ({
        type: Date,
        default:Date.now
    } ,
-   Username: {
+   username: {
        type: String,
        default: '',
        trim: true,
-       required: 'Username is required'
+       required: 'Username is required',
+       index: {unique: true}
    },
-   Password: {
+   password: {
        type: String,
        default: '',
        trim: true,

@@ -6,13 +6,14 @@ var userSchema = new mongoose.Schema({
         type: Date,
         default: Date.now
     },
-    Username: {
+    username: {
         type: String,
         default: '',
         trim: true,
-        required: 'Username is required'
+        required: 'Username is required',
+        index: { unique: true }
     },
-    Password: {
+    password: {
         type: String,
         default: '',
         trim: true,
@@ -22,4 +23,4 @@ var userSchema = new mongoose.Schema({
 // MAKE THIS PUBLIC SO THE CONTROLLER CAN SEE IT
 exports.User = mongoose.model('User', userSchema);
 
-//# sourceMappingURL=users.js.map
+//# sourceMappingURL=user.js.map
