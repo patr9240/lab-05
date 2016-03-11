@@ -29,8 +29,8 @@ router.get('/add', function (req, res, next) {
 // POST add page - save the new article
 router.post('/add', function (req, res, next) {
     User.create({
-        title: req.body.username,
-        content: req.body.password
+        username: req.body.username,
+        password: req.body.password
     }, function (error, User) {
         // did we get back an error or valid Article object?
         if (error) {
@@ -66,8 +66,8 @@ router.post('/:id', function (req, res, next) {
     // create and populate an article object
     var users = new User({
         _id: id,
-        title: req.body.username,
-        content: req.body.password
+        username: req.body.username,
+        password: req.body.password
     });
     // run the update using mongoose and our model
     User.update({ _id: id }, users, function (error) {
