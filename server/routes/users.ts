@@ -1,6 +1,5 @@
 import express = require('express');
 var router = express.Router();
-
 // db references
 import mongoose = require('mongoose');
 import userModel = require('../models/user');
@@ -34,7 +33,7 @@ router.get('/add', function(req: express.Request, res: express.Response, next: a
 });
 
 // POST add page - save the new article
-router.post('/add', function(req, res, next) {
+router.post('/add', function(req: express.Request, res: express.Response, next: any) {
     User.create({
         username: req.body.username,
         password: req.body.password
