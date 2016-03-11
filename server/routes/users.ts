@@ -34,7 +34,7 @@ router.get('/add', function(req: express.Request, res: express.Response, next: a
 });
 
 // POST add page - save the new article
-router.post('/add', function(req: express.Request, res: express.Response, next: any) {
+router.post('/add', function(req, res, next) {
     User.create({
         username: req.body.username,
         password: req.body.password
