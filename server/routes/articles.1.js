@@ -1,61 +1,60 @@
 "use strict";
 var express = require('express');
 var router = express.Router();
-var userModel = require('../models/user');
-var User = userModel.User;
+var articleModel = require('../models/article');
+var Article = articleModel.Article;
 // GET - show main aritcles page
 router.get('/', function (req, res, next) {
     // use the Article model to query the Articles collection
-    User.find(function (error, users) {
+    Article.find(function (error, articles) {
         if (error) {
             console.log(error);
             res.end(error);
         }
         else {
             // no error, we found a list of articles
-            res.render('users/index', {
-                title: 'Users',
-                users: users
+            res.render('articles/index', {
+                title: 'Articles',
+                articles: articles
             });
         }
     });
 });
 // GET add page - show the blank form
 router.get('/add', function (req, res, next) {
-    res.render('users/add', {
-        title: 'Add a New User'
+    res.render('articles/add', {
+        title: 'Add a New Article'
     });
 });
 // POST add page - save the new article
 router.post('/add', function (req, res, next) {
-    User.create({
-        username: req.body.username,
-        password: req.body.password,
-        email: req.body.email,
-    }, function (error, User) {
+    Article.create({
+        title: req.body.title,
+        content: req.body.content
+    }, function (error, Article) {
         // did we get back an error or valid Article object?
         if (error) {
             console.log(error);
             res.end(error);
         }
         else {
-            res.redirect('/users');
+            res.redirect('/articles');
         }
     });
 });
 // GET edit page - show the current article in the form
 router.get('/:id', function (req, res, next) {
     var id = req.params.id;
-    User.findById(id, function (error, User) {
+    Article.findById(id, function (error, Article) {
         if (error) {
             console.log(error);
             res.end(error);
         }
         else {
             //show the edit view
-            res.render('users/edit', {
-                title: 'User Details',
-                user: User
+            res.render('articles/edit', {
+                title: 'Article Details',
+                article: Article
             });
         }
     });
@@ -65,20 +64,19 @@ router.post('/:id', function (req, res, next) {
     // grab the id from the url parameter
     var id = req.params.id;
     // create and populate an article object
-    var user = new User({
+    var article = new Article({
         _id: id,
-        username: req.body.username,
-        password: req.body.password,
-        email: req.body.email,
+        title: req.body.title,
+        content: req.body.content
     });
     // run the update using mongoose and our model
-    User.update({ _id: id }, user, function (error) {
+    Article.update({ _id: id }, article, function (error) {
         if (error) {
             console.log(error);
             res.end(error);
         }
         else {
-            res.redirect('/users');
+            res.redirect('/articles');
         }
     });
 });
@@ -87,17 +85,17 @@ router.get('/delete/:id', function (req, res, next) {
     // get the id from the url
     var id = req.params.id;
     // use the model and delete this record
-    User.remove({ _id: id }, function (error) {
+    Article.remove({ _id: id }, function (error) {
         if (error) {
             console.log(error);
             res.end(error);
         }
         else {
-            res.redirect('/users');
+            res.redirect('/articles');
         }
     });
 });
 // make this public
 module.exports = router;
 
-//# sourceMappingURL=users.js.map
+//# sourceMappingURL=articles.1.js.map

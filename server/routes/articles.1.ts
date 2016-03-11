@@ -3,24 +3,24 @@ var router = express.Router();
 
 // db references
 import mongoose = require('mongoose');
-import userModel = require('../models/user');
+import articleModel = require('../models/article');
 
-import User = userModel.User;
+import Article = articleModel.Article;
 
 // GET - show main aritcles page
 router.get('/', (req: express.Request, res: express.Response, next: any) => {
    
     // use the Article model to query the Articles collection
-    User.find(function(error, users) {
+    Article.find(function(error, articles) {
         if (error) {
             console.log(error);
             res.end(error);
         }
         else {
             // no error, we found a list of articles
-            res.render('users/index', {
-                title: 'Users',
-                users: users
+            res.render('articles/index', {
+                title: 'Articles',
+                articles: articles
             });
         }
     });
@@ -28,25 +28,24 @@ router.get('/', (req: express.Request, res: express.Response, next: any) => {
 
 // GET add page - show the blank form
 router.get('/add', function(req: express.Request, res: express.Response, next: any) {
-    res.render('users/add', {
-        title: 'Add a New User'
+    res.render('articles/add', {
+        title: 'Add a New Article'
     });
 });
 
 // POST add page - save the new article
 router.post('/add', function(req: express.Request, res: express.Response, next: any) {
-    User.create({
-        username: req.body.username,
-        password: req.body.password,
-        email: req.body.email,
-    }, function(error, User) {
+    Article.create({
+        title: req.body.title,
+        content: req.body.content
+    }, function(error, Article) {
         // did we get back an error or valid Article object?
         if (error) {
             console.log(error);
             res.end(error);
         }
         else {
-            res.redirect('/users');
+            res.redirect('/articles');
         }
     })
 });
@@ -56,16 +55,16 @@ router.get('/:id', (req: express.Request, res: express.Response, next: any) => {
 
     var id = req.params.id;
 
-    User.findById(id, (error, User) => {
+    Article.findById(id, (error, Article) => {
         if (error) {
             console.log(error);
             res.end(error);
         }
         else {
             //show the edit view
-            res.render('users/edit', {
-                title: 'User Details',
-                user: User
+            res.render('articles/edit', {
+                title: 'Article Details',
+                article: Article
             });
         }
     });
@@ -78,21 +77,20 @@ router.post('/:id', (req: express.Request, res: express.Response, next: any) => 
     var id = req.params.id;
 
     // create and populate an article object
-    var user = new User({
+    var article = new Article({
         _id: id,
-        username: req.body.username,
-        password: req.body.password,
-        email: req.body.email,
+        title: req.body.title,
+        content: req.body.content
     });
 
     // run the update using mongoose and our model
-    User.update({ _id: id }, user, (error) => {
+    Article.update({ _id: id }, article, (error) => {
         if (error) {
             console.log(error);
             res.end(error);
         }
         else {
-            res.redirect('/users');
+            res.redirect('/articles');
         }
     });
 });
@@ -104,13 +102,13 @@ router.get('/delete/:id', (req: express.Request, res: express.Response, next: an
     var id = req.params.id;
 
     // use the model and delete this record
-    User.remove({ _id: id }, (error) => {
+    Article.remove({ _id: id }, (error) => {
         if (error) {
             console.log(error);
             res.end(error);
         }
         else {
-            res.redirect('/users');
+            res.redirect('/articles');
         }
     });
 });

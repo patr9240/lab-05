@@ -1,5 +1,6 @@
 "use strict";
 var mongoose = require('mongoose');
+//bcrypt = require(bcrypt);
 // DEFINE THE OBJECT SCHEMA
 var userSchema = new mongoose.Schema({
     created: {
@@ -18,6 +19,12 @@ var userSchema = new mongoose.Schema({
         default: '',
         trim: true,
         required: 'Password is required'
+    },
+    email: {
+        type: String,
+        default: '',
+        trim: true,
+        required: 'E-Mail is required'
     }
 });
 // MAKE THIS PUBLIC SO THE CONTROLLER CAN SEE IT

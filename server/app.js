@@ -18,8 +18,9 @@ var articles = require('./routes/articles');
 var app = express();
 // connect to mongodb with mongoose
 // local mongodb connection
-//mongoose.connect('mongodb://localhost/comp2068-mongodemo');
-mongoose.connect('mongodb://user1:password1@ds064628.mlab.com:64628/comp2068-lab5');
+//mongoose.connect('mongodb://localhost/COMP2068-Lab5');
+//mongoose.connect('mongodb://thomas:12345@ds061345.mongolab.com:61345/heroku_qnl2tjrh');
+mongoose.connect('mongodb://Roots:roots@ds064718.mlab.com:64718/comp-2068-lab5');
 // check connection
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'Connection Error: '));
