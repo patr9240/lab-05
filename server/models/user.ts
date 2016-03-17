@@ -28,6 +28,12 @@ var userSchema = new mongoose.Schema ({
        default: '',
        trim: true,
        required: 'E-Mail is required'
+   },
+   displayName: {
+       type: String,
+       default: "",
+       trim: true,
+       required: 'display name is required'
    }
 });
 

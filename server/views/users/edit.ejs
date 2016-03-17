@@ -16,6 +16,10 @@
             <label for="email" class="col-sm-2">E-mail: *</label>
             <input name="eamil" type="email" required value="<%= user.email %>" />
         </fieldset>
+        <fieldset class="form-group">
+            <label for="displayName" class="col-sm-2">Display Name: *</label>
+            <input name="displayName" type="text"" required value="<%= user.displayName %>" />
+        </fieldset>
         <button type="submit" class="col-sm-offset-2 btn btn-success">Submit</button>
 
         <a href="/users/delete/<%= user._id %>" title="Delete" onclick="return confirm('Are you sure you want to delete this?');">

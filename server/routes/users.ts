@@ -39,6 +39,7 @@ router.post('/add', function(req: express.Request, res: express.Response, next: 
         username: req.body.username,
         password: req.body.password,
         email: req.body.email,
+        displayName: req.body.displayName
     }, function(error, User) {
         // did we get back an error or valid Article object?
         if (error) {
@@ -83,6 +84,7 @@ router.post('/:id', (req: express.Request, res: express.Response, next: any) => 
         username: req.body.username,
         password: req.body.password,
         email: req.body.email,
+        displayName: req.body.displayName
     });
 
     // run the update using mongoose and our model
